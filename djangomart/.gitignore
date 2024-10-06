@@ -1,0 +1,47 @@
+# created by virtualenv automatically
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Django stuff:
+*.log
+local_settings.py
+
+# ENV (virtual environment)
+env/
+venv/
+ENV/
+VENV/
+env.bak/
+venv.bak/
+
+# Pyenv
+.pyenv/
+
+# MySQL
+*.sql
+
+# SQLite
+*.sqlite3
+
+# Django migrations
+**/migrations/
+
+# Static files
+staticfiles/
+
+# Media files
+media/
+
+# Jupyter Notebook files
+.ipynb_checkpoints
+
+# VS Code settings
+.vscode/
+
+# macOS
+.DS_Store
