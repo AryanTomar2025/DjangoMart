@@ -1,0 +1,41 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block title %}Update Address{% endblock title %}
+
+{% block main-content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <!-- Side Navigation for Profile and Address -->
+            <h4 class="card-title text-capitalize">Welcome {{ request.user.username }}</h4>
+            <div class="list-group">
+                <a href="{% url 'profile' %}" class="list-group-item list-group-item-action active">
+                    Profile
+                </a>
+                <a href="{% url 'address' %}" class="list-group-item list-group-item-action">
+                    Address
+                </a>
+            </div>
+        </div>
+        
+        <div class="col-md-9">
+            <div class="row">
+                <h2 class="text-center mb-4">Update Address</h2>
+                <form method="POST" class="address-update-form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Update Address</button>
+                        <a href="{% url 'address' %}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+                {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                <p class="alert alert-daner my-3">{{error}}</p>
+                {%endfor%}
+                {%endif%}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

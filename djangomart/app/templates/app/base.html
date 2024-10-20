@@ -21,17 +21,26 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-info">
       <div class="container-fluid">
+        <!-- Brand logo -->
         <a class="navbar-brand" href="#">
-          <h2 class="text-dark">DjangoMart</h2>
+          <img src="{% static 'app/images/banner/brandlogo.png' %}" style="width: 70px;" alt="logo" />
         </a>
+    
+        <!-- Toggler for mobile view -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+    
+        <!-- Navbar content -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item text-dark">
+            <!-- Home link -->
+             {% if request.user.is_authenticated  %}
+            <li class="nav-item">
               <a class="nav-link active text-dark" aria-current="page" href="/">Home</a>
             </li>
+    
+            <!-- Products dropdown -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Products
@@ -41,61 +50,76 @@
                 <li><a class="dropdown-item" href="{% url 'category' 'CR' %}">Curd</a></li>
                 <li><a class="dropdown-item" href="{% url 'category' 'LS' %}">Lassi</a></li>
                 <li><a class="dropdown-item" href="{% url 'category' 'GH' %}">Ghee</a></li>
-                <li><a class="dropdown-item" href="{% url 'category' 'PN' %}">Panner</a></li>
+                <li><a class="dropdown-item" href="{% url 'category' 'PN' %}">Paneer</a></li>
                 <li><a class="dropdown-item" href="{% url 'category' 'CZ' %}">Cheese</a></li>
-                <li><a class="dropdown-item" href="{% url 'category' 'MS' %}">MilkShake</a></li>
+                <li><a class="dropdown-item" href="{% url 'category' 'MS' %}">Milkshake</a></li>
                 <li><a class="dropdown-item" href="{% url 'category' 'IC' %}">Ice-creams</a></li>
-                
               </ul>
-              
             </li>
+    
+            <!-- Other links -->
             <li class="nav-item">
               <a class="nav-link text-dark" href="#">About Us</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-dark" href="#">Contact Us</a>
             </li>
-            
-            
           </ul>
-          <form class="d-flex" role="search">
+    
+          <!-- Search form -->
+          <form class="d-flex me-3" role="search">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-info text-dark" type="submit">Search</button>
           </form>
+    
+          <!-- User dropdown and additional links -->
+          <ul class="navbar-nav mb-2 mb-lg-0">
+            <li class="nav-item dropdown mx-2">
+              <a class="nav-link dropdown-toggle text-dark" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Aryan</a>
+              <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                <li><a class="dropdown-item" href="#">Orders</a></li>
+                <li><a class="dropdown-item" href="{% url 'passwordchange' %}">Change Password</a></li>
+                <li>
+                  <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="dropdown-item" style="border: none; background: none; padding-left: px; color: inherit; width: 100%; text-align: left; cursor: pointer;">
+                      Logout
+                    </button>
+                  </form>
+                </li>
+                
+                
+                
+              </ul>
+            </li>
+    
+            <!-- Cart, Wishlist, Login, Registration links -->
+            <li class="nav-item mx-2">
+              <a href="#" class="nav-link text-dark">Cart</a>
+            </li>
+            <li class="nav-item mx-2">
+              <a href="#" class="nav-link text-dark">Wishlist</a>
+            </li>
+            {% else %}
+            <li class="nav-item mx-2">
+              <a href="{% url 'login' %}" class="nav-link text-dark">Login</a>
+            </li>
+            <li class="nav-item mx-2">
+              <a href="{% url 'customerregistration' %}" class="nav-link text-dark">Register</a>
+            </li>
+            {% endif %}
+          </ul>
         </div>
-
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item dropdown mx-2">
-            <a class="nav-link dropdown-toggle text-dark" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Aryan</a>
-            <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><a class="dropdown-item" href="#">Orders</a></li>
-              <li><a class="dropdown-item" href="#">Change Password</a></li>
-              <li><a class="dropdown-item" href="#">Logout</a></li>
-            </ul>
-          </li>
-          <li class="nav-item mx-2">
-            <a href="#" class="nav-link text-dark">Cart</a>
-          </li>
-          <li class="nav-item mx-2">
-            <a href="#" class="nav-link text-dark">WishList</a>
-          </li>
-          <li class="nav-item mx-2">
-            <a href="#" class="nav-link text-dark">Login</a>
-          </li>
-          <li class="nav-item mx-2">
-            <a href="#" class="nav-link text-dark">Registration</a>
-          </li>
-        </ul>
-        
       </div>
     </nav>
+    
 
     {% block banner-slider %}{% endblock banner-slider %}
     {% block information %}{% endblock information %}
     {% block main-content %}{% endblock main-content %}
   
-    <footer class="bg-info text-center p-3 mt-5 fixed-bottom " style="width: 100%;">
+    <footer class="bg-info text-center p-2 mt-5 fixed-bottom " style="width: 100%;">
     
         Copyright: 2024 || Developed by: Aryan Tomar
       
